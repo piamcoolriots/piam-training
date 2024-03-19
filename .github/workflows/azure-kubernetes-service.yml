@@ -1,0 +1,66 @@
+name: BesInsight build and deploy to AKS
+
+on:
+  push:
+    branches: ["main"]
+    # tags:
+    #   - 'v*'
+  workflow_dispatch:
+
+env:
+  AZURE_CONTAINER_REGISTRY: "botwebhook"
+  RESOURCE_GROUP: "CA_Resource"
+  CLUSTER_NAME: "botwebhook"
+  DEPLOYMENT_NAME: "cloud-training-piam"  
+  NAMESPACE: "cloud-training" 
+
+jobs:
+  buildImage:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ${{ github.sha }}
+    steps:
+      # Checks out the repository this file is in
+      - uses: actions/checkout@v3
+
+      # Logs in with your Azure credentials
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.PRODBESORCHESTRATOR_AZURE_CREDENTIALS }}
+
+      # Builds and pushes the app image to ACR
+      - name: Build and push app image to ACR
+        run: |
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.DEPLOYMENT_NAME }}:${{ env.TAG_NAME }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} --file Dockerfile .
+
+      - name: List AKS clusters in the resource group
+        run: az aks list -g ${{ env.RESOURCE_GROUP }} --output table
+
+      # Use kubelogin to configure your kubeconfig for Azure auth
+      - name: Set up kubelogin for non-interactive login
+        uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'v0.0.25'
+
+      # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
+      - name: Get K8s context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          admin: 'false'
+          use-kubelogin: 'true'
+
+      # Check Kubernetes API server connectivity
+      - name: Get Kubernetes Cluster Info
+        run: kubectl cluster-info
+
+      # Update deployment image and restart deployment
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.DEPLOYMENT_NAME }}=${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.DEPLOYMENT_NAME }}:${{ env.TAG_NAME }} -n ${{ env.NAMESPACE }}
+          kubectl rollout restart deployment/${{ env.DEPLOYMENT_NAME }} --namespace ${{ env.NAMESPACE }}
