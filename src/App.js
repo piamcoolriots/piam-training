@@ -9,7 +9,7 @@ function App() {
 	return (
 		<div>
 			<Routes>
-				<Route path="/" element={<h2>Home Page</h2>} />
+				<Route path="/" element={<h2>Home Page v2</h2>} />
 				<Route path="/UserStory" element={<UserStory />} />
 				<Route path="/OpCodeSearch" element={<OpCodeSearch />} />
 				<Route path="/OpCodeCreate" element={<OpCodeCreate />} />
