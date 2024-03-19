@@ -1,0 +1,12 @@
+
+.page {
+    max-width: 1280px;
+    overflow-x: hidden;
+    margin: 60px auto 100px auto;
+}
+
+@media screen and (max-width: 767px) {
+    .page {
+        margin: 10px 0 40px 0;
+    }
+}

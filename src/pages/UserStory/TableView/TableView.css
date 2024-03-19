@@ -1,0 +1,53 @@
+.table-scroll {
+    overflow: auto;
+}
+
+.table-style {
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: seashell;
+}
+
+tr:nth-child(even) {
+    padding: 8px;
+    background-color: aliceblue;
+}
+
+th, td {
+    text-align: start;
+    border: 1px solid #ddd;
+    padding: 8px 4px;
+}
+
+.no-data {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bolder;
+}
+
+.toggle-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font-size: 24px;
+}
+
+.toggle-active {
+    color: green;
+}
+
+.toggle-inactive {
+    color: gray;
+}
+
+@media  screen and (max-width: 767px) {
+    .table-scroll {
+        width: calc(100vw - 100px);
+    }
+    
+}

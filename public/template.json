@@ -1,0 +1,236 @@
+{
+    "templateName": "user",
+    "tableName": "user",
+    "searchComponent": {
+        "condition": "and",
+        "fields": [
+            {
+                "key": "name",
+                "dataType": "string",
+                "type": "text",
+                "label": "Name",
+                "placeholder": "Enter name",
+                "operator": "match",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "courseName",
+                "connection": {
+                    "key": "courseId",
+                    "table": "course"
+                },
+                "dataType": "string",
+                "type": "text",
+                "label": "Course Name",
+                "placeholder": "Enter Course Name",
+                "operator": "match",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "age",
+                "dataType": "number",
+                "type": "number",
+                "label": "Age",
+                "placeholder": "Enter age",
+                "operator": "greaterThan",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "dateOfBirth",
+                "dataType": "date",
+                "type": "date",
+                "label": "DOB",
+                "placeholder": "Enter DOB",
+                "operator": "equal",
+                "width": "150px",
+                "size": 4
+            },
+            {
+                "key": "country",
+                "dataType": "string",
+                "type": "dropdown",
+                "searchable": true,
+                "label": "Country",
+                "placeholder": "Select country",
+                "lutApi": "/api/country_city/country",
+                "operator": "equal",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "city",
+                "dataType": "string",
+                "type": "dropdown",
+                "dependOn": "country",
+                "searchable": false,
+                "label": "City",
+                "placeholder": "Select city",
+                "lutApi": "/api/country_city/city",
+                "operator": "equal",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "gender",
+                "dataType": "string",
+                "type": "radio",
+                "label": "Gender",
+                "placeholder":"Enter gender",
+                "values": [
+                    "Male",
+                    "Female"
+                ],
+                "operator": "equal",
+                "width": "100%",
+                "size": 6
+            }
+        ]
+    },
+    "formComponent": {
+        "fields": [
+            {
+                "key": "name",
+                "dataType": "string",
+                "type": "text",
+                "label": "Name",
+                "placeholder": "Enter name",
+                "required": true,
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "age",
+                "dataType": "number",
+                "type": "number",
+                "label": "Age",
+                "placeholder": "Enter age",
+                "required": true,
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "dateOfBirth",
+                "dataType": "date",
+                "type": "date",
+                "label": "DOB",
+                "placeholder": "Enter DOB",
+                "required": true,
+                "width": "150px",
+                "size": 4
+            },
+            {
+                "key": "country",
+                "dataType": "string",
+                "type": "dropdown",
+                "searchable": true,
+                "label": "Country",
+                "placeholder": "Select country",
+                "lutApi": "/api/country_city/country",
+                "operator": "equal",
+                "required": true,
+                "size": 4
+            },
+            {
+                "key": "city",
+                "dataType": "string",
+                "type": "dropdown",
+                "dependOn": "country",
+                "searchable": false,
+                "label": "City",
+                "placeholder": "Select city",
+                "lutApi": "/api/country_city/city",
+                "operator": "equal",
+                "width": "100%",
+                "size": 4
+            },
+            {
+                "key": "gender",
+                "dataType": "string",
+                "type": "radio",
+                "label": "Gender",
+                "placeholder":"Enter gender",
+                "values": [
+                    "Male",
+                    "Female"
+                ],
+                "required": true,
+                "width": "100%",
+                "size": 6
+            }
+        ]
+    },
+    "tableComponent": {
+        "tableCol": [
+            {
+                "key": "name",
+                "title": "Name",
+                "type": "string",
+                "size": "auto"
+            },
+            {
+                "key": "courseFees",
+                "connection": {
+                    "key": "courseId",
+                    "table": "course"
+                },
+                "title": "Course Fees",
+                "type": "string",
+                "size": "auto"
+            },
+            {
+                "key": "age",
+                "title": "Age",
+                "type": "number",
+                "size": "150px"
+            },
+            {
+                "key": "dateOfBirth",
+                "title": "DOB",
+                "type": "date",
+                "size": "100px"
+            },
+            {
+                "key": "country",
+                "title": "Country",
+                "size": "150px"
+            },
+            {
+                "key": "gender",
+                "title": "Gender",
+                "type": "string",
+                "size": "180px"
+            }
+        ],
+        "mode": "responsive",
+        "scrollRight": "enabled",
+        "displayOrder": "row",
+        "maxRow": 20
+    },
+    "viewDetailComponent": {
+        "fields": [
+            {
+                "key": "name",
+                "title": "Name"
+            },
+            {
+                "key": "age",
+                "title": "Age"
+            },
+            {
+                "key": "dateOfBirth",
+                "title": "Date Of Birth"
+            },
+            {
+                "key": "country",
+                "title": "Country"
+            },
+            {
+                "key": "gender",
+                "title": "Gender"
+            }
+        ]
+    }
+}

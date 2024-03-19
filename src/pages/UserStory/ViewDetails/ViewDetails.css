@@ -1,0 +1,19 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.next-button{
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+.next-button:hover{
+    background-color: darkgreen;  
+}

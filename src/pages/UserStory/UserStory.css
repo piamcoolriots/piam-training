@@ -1,0 +1,40 @@
+:root {
+    --story-frame-bgColor: white;
+    --opcode-search-color: rgba(157, 159, 161, 0.3);
+    --view-details-bgColor: rgba(157, 159, 161, 0.3);
+}
+
+.userStory-page {
+    margin: 60px auto 100px auto;
+    max-width: 1280px;
+}
+
+.title {
+    text-align: center;
+}
+
+.storyFrame-container {
+    background-color: var(--story-frame-bgColor);
+    display: grid;
+    grid-template-columns: 9fr 3fr;
+    gap: 10px;
+    margin: 40px 10px;
+}
+
+.opCodeSearch-container {
+    background-color: var(--opcode-search-color);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.viewDetails-container {
+    background-color: var(--view-details-bgColor);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 1279px) {
+    .storyFrame-container {
+        grid-template-columns: 1fr;
+    }
+}

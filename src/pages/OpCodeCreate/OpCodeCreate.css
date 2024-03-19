@@ -1,0 +1,117 @@
+/* Style for the search container */
+.search-container {
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background-color: rgba(246, 242, 242, 80);
+    box-sizing: border-box;
+    /* width: 100%; */
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+}
+
+.fields-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+}
+
+.container-item {
+    padding: 20px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 1);
+    min-height: 110px;
+}
+
+.field-title {
+    color: red;
+    display: block;
+    padding-bottom: 9px;
+}
+
+input, select {
+    padding: 10px 0px;
+    border: 0px;
+    border-bottom: 2px solid rgba(240, 240, 240, 1);
+    box-sizing: border-box;
+}
+
+input::placeholder, select::placeholder {
+    color: rgba(157, 159, 161, 1);
+}
+
+input:focus, select:focus {
+    outline: none;
+    color: black;
+    border-bottom: 2px solid rgba(0, 128, 0, 0.771);
+}
+
+input[type="radio"]:checked {
+    background-color: #3498db; /* Change background color when checked */
+    border-color: #3498db; /* Change border color when checked */
+    color: #fff; /* Change text color when checked */
+}
+
+
+.radio-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Style for the submit and clear button */
+.submit-button,
+.clear-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.submit-button:hover {
+    background-color: darkgreen;    
+}
+
+.submit-button:disabled {
+    background-color: rgba(0, 128, 0, 0.5);
+    cursor: not-allowed;
+}
+
+.clear-button:hover {
+    background-color: darkgreen;
+}
+
+@media screen and (max-width: 767px) {
+    .table-container {
+        padding: 10px;
+    }
+    .fields-container {
+        grid-template-columns: 1fr;
+    }
+    .component-style {
+        flex-basis: 100%;
+    }
+    .radio-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+
+.error-message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(139, 8, 8);
+}

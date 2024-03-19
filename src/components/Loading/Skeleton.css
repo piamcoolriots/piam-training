@@ -1,0 +1,28 @@
+.skeleton-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    /* Add other styling properties as needed */
+  }
+  
+  .skeleton-content {
+    height: 25px; 
+    background: linear-gradient(90deg, #ccc 25%, #e0e0e0 50%, #ccc 75%);
+    margin-bottom: 5px;
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite; 
+    border-radius: 20px;
+  }
+  
+  @keyframes shimmer {
+    to {
+      background-position: 100% 0;
+    }
+  }
+  

@@ -1,0 +1,31 @@
+.table-style {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+thead {
+    background-color: seashell;
+}
+
+tr:nth-child(even) {
+    padding: 8px;
+    background-color: aliceblue;
+}
+
+th, td {
+    text-align: start;
+    border: 1px solid #ddd;
+    padding: 8px 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.no-data {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bolder;
+}

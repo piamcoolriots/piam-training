@@ -1,0 +1,33 @@
+{
+    "storyTemplateName": "traineeStoryTemplate",
+    "title": "User Story View Trainee",
+    "frames": [
+        {
+            "action": "search",
+            "frameTemplateName": "trainee",
+            "actionTitle": "Search Trainee",
+            "viewDetailTitle": "View Trainee",
+            "contextField": [
+                "traineeId"
+            ]
+        },
+        {
+            "action": "search",
+            "frameTemplateName": "student",
+            "actionTitle": "Search Employee",
+            "viewDetailTitle": "View Employee",
+            "params": "traineeId",
+            "contextField": [
+                "_id"
+            ]
+        },
+        {
+            "frameTemplateName": "user",
+            "actionTitle": "Search Employee",
+            "viewDetailTitle": "View Employee",
+            "contextField": [
+                "_id"
+            ]
+        }
+    ]
+}

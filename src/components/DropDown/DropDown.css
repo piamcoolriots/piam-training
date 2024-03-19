@@ -1,0 +1,109 @@
+:root {
+    --drop-down-box-bgColor: white;
+    --drop-down-box-color: rgba(157, 159, 161, 1);
+    --drop-down-box-border: 2px solid rgba(211, 211, 211, 0.696);
+
+    --drop-down-icon-color: rgba(0, 0, 0, 0.2);
+
+    --drop-down-menu-bgColor: white;
+    --drop-down-menu-border: 1px solid rgb(211, 191, 191);
+
+    --drop-down-search-bgColor: white;
+    --drop-down-search-border: 1px solid rgba(0, 0, 0, 0.215);
+
+    --drop-down-option-color: white;
+    --drop-down-option-bgColor: gainsboro;
+    --drop-down-option-border: 1px solid rgba(0, 0, 0, 0.215);
+    --drop-down-option-hover-color: white;
+    --drop-down-option-hover-bgColor: rgba(0, 128, 0, 0.771);
+}
+
+.drop-down-container {
+    position: relative;
+    width: 100%;
+}
+
+.drop-down-menu-option-container {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.drop-down-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: var(--drop-down-box-border);
+    color: var(--drop-down-box-color);
+    background-color: var(--drop-down-box-bgColor);
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 7px;
+    margin: 0;
+    /* position: relative; */
+    cursor: pointer;
+    user-select: none;
+}
+
+.drop-down-icon {
+    color: var(--drop-down-icon-color);
+    font-size: 20px;
+}
+
+.drop-down-menu {
+    padding: 10px;
+    background-color: var(--drop-down-menu-bgColor);
+    border: var(--drop-down-menu-border);
+    margin-top: 8px;
+    border-radius: 5px;
+}
+
+.search {
+    background-color: var(--drop-down-search-bgColor);
+    border: var(--drop-down-search-border);
+    border-radius: 5px;
+    font-size: 14px;
+    margin: bottom 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px 10px;
+    margin-bottom: 5px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.search input:focus {
+    border: none;
+    outline: none;
+}
+
+.options {
+    border: 1px solid rgba(0, 0, 0, 0.215);
+    background-color: rgba(240, 255, 255, 0.916);
+    overflow-y: auto;
+    height: 150px;
+    width: 100%;
+}
+
+.option {
+    font-size: 14px;
+    background-color: var(--drop-down-option-bgColor);
+    border: var(--drop-down-option-color);
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 4px 10px;
+}
+
+.option:hover {
+    background: var(--drop-down-option-hover-bgColor);
+    color: var(--drop-down-option-hover-color);
+    cursor: pointer;
+}
+

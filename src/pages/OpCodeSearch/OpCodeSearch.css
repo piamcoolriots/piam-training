@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+* {
+    font-family: 'Montserrat';
+}
+
+/* Style for the search container */
+.search-container {
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background-color: #FAF9F4;
+    box-sizing: border-box;
+    /* width: 100%; */
+    border-radius: 15px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+}
+
+.fields-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 5px;
+}
+
+.container-item {
+    padding: 10px 15px;
+    border: 1px solid rgba(0, 0, 0, 0) !important;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0) !important;
+    min-height: 10px;
+}
+
+.field-title {
+    color: #8F8F8F !important;
+    display: block;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+input, select {
+    padding: 10px;
+    border: 2px solid #8F8F8F;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+    input::placeholder, select::placeholder {
+        color: rgba(157, 159, 161, 1);
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        color: black;
+        border: 2px solid #9CD229;
+    }
+
+    input[type="radio"]:checked {
+        background-color: #9CD229; /* Change background color when checked */
+        border-color: #9CD229; /* Change border color when checked */
+        color: #fff; /* Change text color when checked */
+    }
+
+
+.radio-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Style for the submit and clear button */
+.submit-button {
+    background-color: #9CD229;
+    color: white;
+    padding: 10px 45px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 30px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 14.5px;
+}
+
+.clear-button {
+    background-color: #8F8F8F;
+    color: white;
+    padding: 10px 45px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 30px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 14.5px;
+}
+
+.submit-button:after {
+    font-family: "Material Icons";
+    content: " search";
+    vertical-align: middle;
+    font-size: 14.5px;
+}
+
+.clear-button:after {
+    font-family: "Material Icons";
+    content: " clear";
+    vertical-align: middle;
+    font-size: 14.5px;
+}
+
+.submit-button:hover {
+    background-color: #81AD25;
+}
+
+.clear-button:hover {
+    background-color: #ABABAB;
+}
+
+/*Please add class name for every data type field*/
+input[type="date" i] {
+    width: 100% !important;
+}
+
+.drop-down-box {
+    width: 100%;
+}
+
+/* Style for Table */
+.table-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 5px white;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.scrollable-table {
+    width: 100%;
+    padding: 4px;
+    table-layout: fixed;
+}
+
+
+.pagination-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    background-color: #9BD228;
+    color: white;
+    padding: 20px;
+}
+
+td {
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #EDEDED;
+}
+
+tr:nth-child(odd) {
+    background-color: #FAF9F4;
+}
+
+.button-color-black {
+    background-color: #9BD228;
+}
+
+@media screen and (max-width: 767px) {
+    .table-container {
+        padding: 10px;
+    }
+
+    .fields-container {
+        grid-template-columns: 1fr;
+    }
+
+    .component-style {
+        flex-basis: 100%;
+    }
+
+    .radio-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
