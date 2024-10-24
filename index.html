@@ -135,6 +135,12 @@
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
+
+                    <label for="displayDetailsButton">Display Details button:</label>
+                    <select class="displayDetailsButton" required>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
                 </div>
 
                 <div class="createFields right-column" style="display: none;">
@@ -144,19 +150,19 @@
                     <label for="frameTableNameCreate">Frame Table Name:</label>
                     <input type="text" class="frameTableNameCreate" required>
 
-                    <label for="params">Params:</label>
-                    <input type="text" class="params" required>
+                    <label for="submitbtn">Submit Button Name:</label>
+                    <input type="text" class="submitbtn" required>
 
                     <label for="contextFieldCreate">Context Fields (comma-separated):</label>
-                    <input type="text" class="contextFieldCreate" required>
+                    <input type="text" class="contextFieldCreate" disabled>
 
-                    <label for="filterCreate">Filter (comma-separated):</label>
+                    <label for="filterCreate">Get Value from context to Form (comma-separated){same as TB get value from url}:</label>
                     <input type="text" class="filterCreate" required>
 
                     <label for="allowedSubmitFields">Allowed Submit Fields (comma-separated):</label>
                     <input type="text" class="allowedSubmitFields" required>
 
-                    <label for="autofillup">Autofillup (comma-separated):</label>
+                    <label for="autofillup">Autofillup (comma-separated)--ex: bookingContactPersonEmail=traineeEmail ,bookingContactPersonEmail will be populated with the value of traineeEmail:</label>
                     <input type="text" class="autofillup" required>
 
                     <label for="operation">Operation:</label>
@@ -220,7 +226,8 @@
                     const entityName = form.querySelector('.entityName').value;
                     const isItMultiSelect = form.querySelector('.isItMultiSelect').value === 'true';
                     const showSelectButton = form.querySelector('.showSelectButton').value === 'true';
-
+                    const displayDetailsButton = form.querySelector('.displayDetailsButton').value === 'true';
+                    
                     frames.push({
                         action: action,
                         frameTemplateName: frameTemplateName,
@@ -233,6 +240,7 @@
                         entityName: entityName,
                         isItMultiSelect: isItMultiSelect,
                         showSelectButton: showSelectButton,
+                        displayDetailsButton: displayDetailsButton,
                         apiCalls: [
                             {
                                 key: "templateJson",
@@ -251,7 +259,7 @@
                 } else if (action === 'create') {
                     const frameTemplateName = form.querySelector('.frameTemplateNameCreate').value;
                     const frameTableName = form.querySelector('.frameTableNameCreate').value;
-                    const params = form.querySelector('.params').value;
+                    const submitbtn = form.querySelector('.submitbtn').value;
                     const contextField = form.querySelector('.contextFieldCreate').value.split(',').map(field => field.trim());
                     const filter = form.querySelector('.filterCreate').value.split(',').map(f => f.trim());
                     const allowedSubmitFields = form.querySelector('.allowedSubmitFields').value.split(',').map(field => field.trim());
@@ -262,7 +270,7 @@
                         action: action,
                         frameTemplateName: frameTemplateName,
                         frameTableName: frameTableName,
-                        params: params,
+                        submitbtn: submitbtn,
                         contextField: contextField,
                         filter: filter,
                         allowedSubmitFields: allowedSubmitFields,
@@ -360,6 +368,7 @@
                             setUserId={setUserId}
                             templateName={frameData.frameTemplateName}
                             isUserStory={frameData.showSelectButton}
+                            displayDetailsbtn={frameData.displayDetailsButton}
                             filter={frameData.filter}
                             apiCalls={frameData.apiCalls}
                             contextField={frameData.contextField}
@@ -395,6 +404,7 @@
                             setUserId={setUserId}
                             templateName={storyTemplate.frames[${index}].frameTemplateName}
                             isUserStory={storyTemplate.frames[${index}].showSelectButton}
+                            displayDetailsbtn={storyTemplate.frames[${index}].displayDetailsButton}
                             filter={storyTemplate.frames[${index}].filter}
                             apiCalls={storyTemplate.frames[${index}].apiCalls}
                             contextField={storyTemplate.frames[${index}].contextField}
