@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Template Data Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .action {
+            width: 150px;
+        }
+        .right-column {
+            grid-column: span 2;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .add-more {
+            background-color: #2196F3;
+        }
+        .add-more:hover {
+            background-color: #0b7dda;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .frameForm {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+        }
+        .frameForm h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            overflow: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Story Template Data Form</h1>
+        <div id="mainForm">
+            <label for="storyTemplateName">Story Template Name:</label>
+            <input type="text" id="storyTemplateName" required>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+        </div>
+        <div id="formsContainer">
+            <form class="frameForm">
+                <h3>Frame Data</h3>
+                <label for="action">Action:</label>
+                <select class="action" onchange="toggleFields(this)" required>
+                    <option value="search">Search</option>
+                    <option value="create">Create</option>
+                </select>
+
+                <div class="searchFields right-column">
+                    <label for="frameTemplateName">Frame Template Name:</label>
+                    <input type="text" class="frameTemplateName" required>
+
+                    <label for="frameTableName">Frame Table Name:</label>
+                    <input type="text" class="frameTableName" required>
+
+                    <label for="contextField">Context Fields (comma-separated):</label>
+                    <input type="text" class="contextField" required>
+
+                    <label for="filter">Filter (comma-separated):</label>
+                    <input type="text" class="filter" required>
+
+                    <label for="entityName">Entity Name:</label>
+                    <input type="text" class="entityName" required>
+
+                    <label for="isItMultiSelect">Is It Multi-Select:</label>
+                    <select class="isItMultiSelect" required>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+
+                    <label for="showSelectButton">Show Select Button:</label>
+                    <select class="showSelectButton" required>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+
+                <div class="createFields right-column" style="display: none;">
+                    <label for="frameTemplateNameCreate">Frame Template Name:</label>
+                    <input type="text" class="frameTemplateNameCreate" required>
+
+                    <label for="frameTableNameCreate">Frame Table Name:</label>
+                    <input type="text" class="frameTableNameCreate" required>
+
+                    <label for="params">Params:</label>
+                    <input type="text" class="params" required>
+
+                    <label for="contextFieldCreate">Context Fields (comma-separated):</label>
+                    <input type="text" class="contextFieldCreate" required>
+
+                    <label for="filterCreate">Filter (comma-separated):</label>
+                    <input type="text" class="filterCreate" required>
+
+                    <label for="allowedSubmitFields">Allowed Submit Fields (comma-separated):</label>
+                    <input type="text" class="allowedSubmitFields" required>
+
+                    <label for="autofillup">Autofillup (comma-separated):</label>
+                    <input type="text" class="autofillup" required>
+
+                    <label for="operation">Operation:</label>
+                    <select class="operation" required>
+                        <option value="create">Create</option>
+                        <option value="delete">Delete</option>
+                        <option value="update">Update</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="action-buttons">
+            <button type="button" class="add-more" onclick="addMoreForm()">Add More</button>
+            <button type="button" onclick="generateStoryTemplate()">Generate Story Template Data</button>
+        </div>
+
+        <h2>Generated JSON:</h2>
+        <pre id="output"></pre>
+
+        <!-- Add this div below the generated JSON -->
+        <h2>Generated Components:</h2>
+        <div id="generatedComponents"></div>
+    </div>
+
+    <script>
+        function toggleFields(selectElement) {
+            const form = selectElement.closest('.frameForm');
+            const searchFields = form.querySelector('.searchFields');
+            const createFields = form.querySelector('.createFields');
+
+            if (selectElement.value === 'search') {
+                searchFields.style.display = 'block';
+                createFields.style.display = 'none';
+            } else {
+                searchFields.style.display = 'none';
+                createFields.style.display = 'block';
+            }
+        }
+
+        function addMoreForm() {
+            const formsContainer = document.getElementById('formsContainer');
+            const newForm = document.querySelector('.frameForm').cloneNode(true);
+            newForm.querySelectorAll('input').forEach(input => input.value = '');
+            toggleFields(newForm.querySelector('.action'));
+            formsContainer.appendChild(newForm);
+        }
+
+        function generateStoryTemplate() {
+            const storyTemplateName = document.getElementById('storyTemplateName').value;
+            const title = document.getElementById('title').value;
+            const frames = [];
+
+            document.querySelectorAll('.frameForm').forEach(form => {
+                const action = form.querySelector('.action').value;
+                if (action === 'search') {
+                    const frameTemplateName = form.querySelector('.frameTemplateName').value;
+                    const frameTableName = form.querySelector('.frameTableName').value;
+                    const contextField = form.querySelector('.contextField').value.split(',').map(field => field.trim());
+                    const filter = form.querySelector('.filter').value.split(',').map(f => f.trim());
+                    const entityName = form.querySelector('.entityName').value;
+                    const isItMultiSelect = form.querySelector('.isItMultiSelect').value === 'true';
+                    const showSelectButton = form.querySelector('.showSelectButton').value === 'true';
+
+                    frames.push({
+                        action: action,
+                        frameTemplateName: frameTemplateName,
+                        frameTableName: frameTableName,
+                        contextField: contextField,
+                        previousFrame: true,
+                        export: false,
+                        filter: filter,
+                        createModal: null,
+                        entityName: entityName,
+                        isItMultiSelect: isItMultiSelect,
+                        showSelectButton: showSelectButton,
+                        apiCalls: [
+                            {
+                                key: "templateJson",
+                                onLoad: true,
+                                onButton: false,
+                                server: 2,
+                            },
+                            {
+                                key: "bexInsights",
+                                onLoad: true,
+                                onButton: true,
+                                server: 1,
+                            },
+                        ],
+                    });
+                } else if (action === 'create') {
+                    const frameTemplateName = form.querySelector('.frameTemplateNameCreate').value;
+                    const frameTableName = form.querySelector('.frameTableNameCreate').value;
+                    const params = form.querySelector('.params').value;
+                    const contextField = form.querySelector('.contextFieldCreate').value.split(',').map(field => field.trim());
+                    const filter = form.querySelector('.filterCreate').value.split(',').map(f => f.trim());
+                    const allowedSubmitFields = form.querySelector('.allowedSubmitFields').value.split(',').map(field => field.trim());
+                    const autofillup = form.querySelector('.autofillup').value.split(',').map(field => field.trim());
+                    const operation = form.querySelector('.operation').value;
+
+                    frames.push({
+                        action: action,
+                        frameTemplateName: frameTemplateName,
+                        frameTableName: frameTableName,
+                        params: params,
+                        contextField: contextField,
+                        filter: filter,
+                        allowedSubmitFields: allowedSubmitFields,
+                        autofillup: autofillup,
+                        apiCalls: [
+                            {
+                                key: "templateJson",
+                                onLoad: true,
+                                onButton: false,
+                                server: 2,
+                            },
+                            {
+                                key: "bexAction",
+                                onLoad: false,
+                                onButton: true,
+                                server: 3,
+                                operation: operation,
+                            },
+                        ],
+                    });
+                }
+            });
+
+            const storyTemplateData = {
+                storyTemplateName: storyTemplateName,
+                title: title,
+                frames: frames,
+            };
+
+            document.getElementById('output').textContent = JSON.stringify(storyTemplateData, null, 4);
+            
+            // Call the function to generate components
+            generateComponents(storyTemplateData);
+        }
+
+        // Function to escape HTML characters
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') {
+                unsafe = String(unsafe); // Convert non-string values to strings
+            }
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Function to generate components dynamically based on the JSON
+        function generateComponents(storyTemplateData) {
+            const generatedComponentsDiv = document.getElementById('generatedComponents');
+            generatedComponentsDiv.innerHTML = ''; // Clear previous content
+
+            storyTemplateData.frames.forEach((frameData, index) => {
+                let componentHTML = '';
+
+                // if (frameData.action === 'search') {
+                //     componentHTML = `
+                //     <OpCodeSearchForm2
+                //         setFields={setFields}
+                //         setUserId={setUserId}
+                //         templateName="${escapeHtml(frameData.frameTemplateName)}"
+                //         isUserStory=${escapeHtml(frameData.showSelectButton)}
+                //         filter=${escapeHtml(JSON.stringify(frameData.filter))}
+                //         apiCalls=${escapeHtml(JSON.stringify(frameData.apiCalls))}
+                //         contextField=${escapeHtml(JSON.stringify(frameData.contextField))}
+                //         data={{
+                //             user_id: userId,
+                //             fields: fields,
+                //             target: "${escapeHtml(frameData.frameTableName)}",
+                //             entityName: "${escapeHtml(frameData.entityName)}"
+                //         }}
+                //         allFrameData={allFrameData}
+                //         setAllFrameData={setAllFrameData}
+                //         exportcsv=${frameData.export}
+                //         isItMultiSelect=${frameData.isItMultiSelect}
+                //     />`;
+                // } else if (frameData.action === 'create') {
+                //     componentHTML = `
+                //     <OpCodeCreateForm
+                //         templateName="${escapeHtml(frameData.frameTemplateName)}"
+                //         isUserStory={true}
+                //         filter=${escapeHtml(JSON.stringify(frameData.filter))}
+                //         autofillup=${escapeHtml(JSON.stringify(frameData.autofillup))}
+                //         apiCalls=${escapeHtml(JSON.stringify(frameData.apiCalls))}
+                //         submitbtn=${frameData.submitbtn}
+                //         allowedSubmitFields=${escapeHtml(JSON.stringify(frameData.allowedSubmitFields))}
+                //     />`;
+                // }
+                if (index === 0) {
+                    if (frameData.action === 'search') {
+                        componentHTML = `
+                        <OpCodeSearchForm2
+                            setFields={setFields}
+                            setUserId={setUserId}
+                            templateName={frameData.frameTemplateName}
+                            isUserStory={frameData.showSelectButton}
+                            filter={frameData.filter}
+                            apiCalls={frameData.apiCalls}
+                            contextField={frameData.contextField}
+                            data={{
+                                user_id: userId,
+                                fields: fields,
+                                target: frameData.frameTableName,
+                                entityName: frameData.entityName
+                            }}
+                            allFrameData={allFrameData}
+                            setAllFrameData={setAllFrameData}
+                            exportcsv={frameData.export}
+                            isItMultiSelect={frameData.isItMultiSelect}
+                        />`;
+                    } else if (frameData.action === 'create') {
+                        componentHTML = `
+                        <OpCodeCreateForm
+                            templateName={frameData.frameTemplateName}
+                            isUserStory={true}
+                            filter={frameData.filter}
+                            autofillup={frameData.autofillup}
+                            apiCalls={frameData.apiCalls}
+                            submitbtn={frameData.submitbtn}
+                            allowedSubmitFields={frameData.allowedSubmitFields}
+                        />`;
+                    }
+                } else {
+                    // Use `storyTemplate.frames[n]` for subsequent frames (index > 0)
+                    if (frameData.action === 'search') {
+                        componentHTML = `
+                        <OpCodeSearchForm2
+                            setFields={setFields}
+                            setUserId={setUserId}
+                            templateName={storyTemplate.frames[${index}].frameTemplateName}
+                            isUserStory={storyTemplate.frames[${index}].showSelectButton}
+                            filter={storyTemplate.frames[${index}].filter}
+                            apiCalls={storyTemplate.frames[${index}].apiCalls}
+                            contextField={storyTemplate.frames[${index}].contextField}
+                            data={{
+                                user_id: userId,
+                                fields: fields,
+                                target: storyTemplate.frames[${index}].frameTableName,
+                                entityName: storyTemplate.frames[${index}].entityName
+                            }}
+                            allFrameData={allFrameData}
+                            setAllFrameData={setAllFrameData}
+                            exportcsv={storyTemplate.frames[${index}].export}
+                            isItMultiSelect={storyTemplate.frames[${index}].isItMultiSelect}
+                        />`;
+                    } else if (frameData.action === 'create') {
+                        componentHTML = `
+                        <OpCodeCreateForm
+                            templateName={storyTemplate.frames[${index}].frameTemplateName}
+                            isUserStory={true}
+                            filter={storyTemplate.frames[${index}].filter}
+                            autofillup={storyTemplate.frames[${index}].autofillup}
+                            apiCalls={storyTemplate.frames[${index}].apiCalls}
+                            submitbtn={storyTemplate.frames[${index}].submitbtn}
+                            allowedSubmitFields={storyTemplate.frames[${index}].allowedSubmitFields}
+                        />`;
+                    }
+                }
+
+
+                // Append the generated component to the div as formatted text
+                const componentDiv = document.createElement('div');
+                componentDiv.classList.add('generated-component');
+                componentDiv.innerHTML = `<h3>Component ${index + 1}</h3><pre>${escapeHtml(componentHTML)}</pre>`;
+                generatedComponentsDiv.appendChild(componentDiv);
+            });
+        }
+    </script>
+</body>
+</html>
